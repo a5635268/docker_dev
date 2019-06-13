@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   nginx:
     image: nginx:${NGINX_VERSION}
@@ -9,8 +9,8 @@ services:
       - ${APP_CODE_PATH_HOST}:${CONTAINER_CODE_PATH_HOST}
       - ${NGINX_VHOSTS_PATH}:/etc/nginx/conf.d
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf
-      - ${NGINX_LOG_PATH}:/var/log/
-    restart: always
+      - ${NGINX_LOG_PATH}:/var/log/nginx
+#    restart: always
     networks:
       - net-php
 
@@ -24,8 +24,6 @@ services:
     volumes:
       - ${APP_CODE_PATH_HOST}:${CONTAINER_CODE_PATH_HOST}
       - ${PHP72_LOG_PATH}:/var/log/php
-      - ./conf/php/72/php.ini:/usr/local/etc/php/php.ini
-      - ./conf/php/72/additional.ini:/usr/local/etc/php/conf.d
     restart: always
     networks:
       - net-php
@@ -36,12 +34,10 @@ services:
     build:
         context: ./php/56
     expose:
-      - "9001"
+      - "9000"
     volumes:
       - ${APP_CODE_PATH_HOST}:${CONTAINER_CODE_PATH_HOST}
       - ${PHP56_LOG_PATH}:/var/log/php
-      - ./conf/php/56/php.ini:/usr/local/etc/php/php.ini
-      - ./conf/php/56/additional.ini:/usr/local/etc/php/conf.d
     restart: always
     networks:
       - net-php

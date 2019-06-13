@@ -139,17 +139,20 @@ RUN wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz 
 
 # 自己常用的一些扩展
 RUN pecl install grpc \
-    && echo extension=grpc.so > /usr/local/etc/php/conf.d/grpc.ini \
+    && docker-php-ext-enable grpc \
     && :\
     && pecl install yaconf \
+    && docker-php-ext-enable yaconf \
+    && :\
     && pecl install seaslog \
+    && docker-php-ext-enable seaslog \
     && :\
     && apt-get install -y libmagickwand-dev --fix-missing \
-    && yes '' | pecl install imagick \
-    && echo extension=imagick.so > /usr/local/etc/php/conf.d/imagick.ini \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
     && :\
     && apt-get install -y libmemcached-dev zlib1g-dev \
-    && yes '' | pecl install memcached \
-    && echo extension=memcached.so > /usr/local/etc/php/conf.d/memcached.ini
+    && pecl install memcached \
+    && docker-php-ext-enable memcached
 
 EXPOSE 9000 9500-9508
