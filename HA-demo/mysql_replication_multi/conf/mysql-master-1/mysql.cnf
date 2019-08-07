@@ -24,5 +24,11 @@ log-error               = /var/lib/mysql/mysql.error.log
 
 default-time-zone       = '+8:00'
 
+# replication
+server_id = 2
+log-bin = master1-bin
+gtid-mode=on
+enforce-gtid-consistency=true
+
 [mysql]
 default-character-set   = utf8mb4

@@ -24,5 +24,23 @@ log-error               = /var/lib/mysql/mysql.error.log
 
 default-time-zone       = '+8:00'
 
+# replication
+server_id    = 4
+relay-log    = relay-bin
+master_info_repository = TABLE
+relay_log_info_repository = TABLE
+log-slave-updates=true
+gtid-mode=on
+enforce-gtid-consistency=true
+sync-master-info=1
+slave-parallel-workers=2
+binlog-checksum=CRC32
+master-verify-checksum=1
+slave-sql-verify-checksum=1
+binlog-rows-query-log_events=1
+replicate-rewrite-db=m1->m0
+replicate-rewrite-db=m2->m0
+slave-skip-errors=1032
+
 [mysql]
 default-character-set   = utf8mb4

@@ -24,5 +24,21 @@ log-error               = /var/lib/mysql/mysql.error.log
 
 default-time-zone       = '+8:00'
 
+## replication
+gtid-mode = ON
+enforce-gtid-consistency = ON
+log-slave-updates = ON
+
+server_id = 3
+binlog-ignore-db = mysql
+log-bin = edu-mysql-slave1-bin
+binlog_cache_size = 1M
+binlog_format = mixed
+expire_logs_days = 7
+slave_skip_errors = 1062
+relay_log = edu-mysql-relay-bin
+log_slave_updates = 1
+read_only = 1
+
 [mysql]
 default-character-set   = utf8mb4

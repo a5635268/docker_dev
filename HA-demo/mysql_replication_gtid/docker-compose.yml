@@ -1,0 +1,28 @@
+version: "3"
+services:
+  mysql_master:
+    image: mysql:${MYSQL_VERSION}
+    ports:
+      - "${MYSQL_MASTER_HOST_PORT}:3306"
+    volumes:
+      - ${MYSQL_MASTER_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf
+      - ${MYSQL_MASTER_DATA_DIR}:/var/lib/mysql
+    networks:
+      - net-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+
+  mysql_slave:
+    image: mysql:${MYSQL_VERSION}
+    ports:
+      - "${MYSQL_SLAVE_HOST_PORT}:3306"
+    volumes:
+      - ${MYSQL_SLAVE_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf
+      - ${MYSQL_SLAVE_DATA_DIR}:/var/lib/mysql
+    networks:
+      - net-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+
+networks:
+  net-mysql:

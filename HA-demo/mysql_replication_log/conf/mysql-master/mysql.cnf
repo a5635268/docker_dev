@@ -24,5 +24,15 @@ log-error               = /var/lib/mysql/mysql.error.log
 
 default-time-zone       = '+8:00'
 
+## replication
+server_id=2
+#binlog-do-db=roncoo
+binlog-ignore-db=mysql
+log-bin=edu-mysql-bin
+binlog_cache_size=1M
+binlog_format=mixed
+expire_logs_days=7
+slave_skip_errors=1062
+
 [mysql]
 default-character-set   = utf8mb4

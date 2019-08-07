@@ -45,8 +45,8 @@
 
 ## 快捷命令
 
-    wget -P ~ https://github.com/a5635268/docker_dev/.bashrc_docker;
-    echo "[ -f ~/.bashrc_docker ] && . ~/.bashrc_docker" >> ~/.bashrc; source ~/.bashrc
+    wget -P ~ https://github.com/a5635268/docker_dev/bashrc_docker;
+    echo "[ -f ~/bashrc_docker ] && . ~/bashrc_docker" >> ~/.bashrc; source ~/.bashrc
 
     # 进入容器
     docker-enter nginx
@@ -62,7 +62,7 @@
 ## PHP版本切换和共存
 
 ```
-# 两个版本的php端口分别是9000和9001
+# 两个版本的php端口都是9000（由于没有映射到宿主机上，所以属于不同网络的两个端口）
 $ docker-compose up -d php72 php56
 ```
 
@@ -70,13 +70,12 @@ $ docker-compose up -d php72 php56
 
 ```
 fastcgi_pass   php72:9000;
-fastcgi_pass   php56:9001;
+fastcgi_pass   php56:9000;
 ```
 
 ## HTTPS和HTTP/2
 
     配置示例查看 conf\nginx\conf.d\site2.conf
-
 
 ## 使用Log
 
@@ -84,8 +83,8 @@ fastcgi_pass   php56:9001;
 2. Nginx日志要在nginx配置中打开
 3. seaslog日志要配置到挂载目录
 
-
 ### MySQL日志
+
 因为MySQL容器中的MySQL使用的是`mysql`用户启动，它无法自行在`/var/log`下的增加日志文件。所以，我们把MySQL的日志放在与data一样的目录，即项目的`mysql`目录下，对应容器中的`/var/lib/mysql/`目录。
 ```bash
 slow-query-log-file     = /var/lib/mysql/mysql.slow.log
@@ -95,6 +94,7 @@ log-error               = /var/lib/mysql/mysql.error.log
 
 ## 使用composer
 dnmp默认已经在容器中安装了composer，使用时先进入容器：
+
 ```
 $ docker-enter php72
 ```
@@ -143,5 +143,5 @@ xdebug.remote_log = "/var/log/dnmp/php.xdebug.log"
 https://www.jianshu.com/p/66f5f1e2bfa8
 
 ### 访问挂载目录Permission Denied
-https://www.jianshu.com/p/1ed499037b02
 
+https://www.jianshu.com/p/1ed499037b02
