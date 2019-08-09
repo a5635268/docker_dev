@@ -40,5 +40,11 @@ relay_log = edu-mysql-relay-bin
 log_slave_updates = 1
 read_only = 1
 
+slave_parallel-type=LOGICAL_CLOCK
+slave_parallel_workers=4
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+relay_log_recovery=ON
+
 [mysql]
 default-character-set   = utf8mb4
