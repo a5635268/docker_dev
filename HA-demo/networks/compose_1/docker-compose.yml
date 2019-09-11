@@ -1,0 +1,16 @@
+version: '3'
+services:
+  web:
+    image: nginx:latest
+    container_name: web
+    depends_on:
+      - db
+    ports:
+      - "9090:80"
+    links:
+      - db
+      -
+  db:
+    image: mysql
+    container_name: db
+# 未指定前：默认的网络： composese_1_defalut

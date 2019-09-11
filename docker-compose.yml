@@ -11,6 +11,11 @@ services:
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf
       - ${NGINX_LOG_PATH}:/var/log/nginx
 #    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1000k"
+        max-file: "20"
     networks:
       - net-php
 
@@ -85,7 +90,15 @@ services:
       - REDIS_1_HOST=redis
       - REDIS_1_PORT=6379
 
+  anaconda3:
+    image: continuumio/anaconda3
+    networks:
+      - net-python
+      - net-mysql
+      - net-redis
+
 networks:
   net-php:
+  net-python:
   net-mysql:
   net-redis:

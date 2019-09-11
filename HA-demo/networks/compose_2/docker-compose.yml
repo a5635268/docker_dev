@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app_1:
+    image: nginx:latest
+    ports:
+      - "9090:80"
+    networks:
+      - front
+
+  app_2:
+    image: nginx:latest
+    ports:
+      - "9091:80"
+    networks:
+      - front
+      - back
+
+  app_3:
+    image: nginx:latest
+    ports:
+      - "9092:80"
+    networks:
+      - back
+
+networks:
+  front:
+  back:
+
+# 定义了front和back网络，实现了网络隔离。其中app_1和app_3之间只能通过app_2来实现通信
