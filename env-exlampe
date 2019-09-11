@@ -1,0 +1,41 @@
+################################################
+###       environment config file            ###
+################################################
+APP_CODE_PATH_HOST=/home/docker/wwwroot
+CONTAINER_CODE_PATH_HOST=/home/wwwroot
+
+#################### PHP7.2 ####################
+PHP72_LOG_PATH=./log/php72
+
+#################### python anaconda ####################
+ANACONDA_VERSION=2019.07
+ANACONDA_USER=caiwen
+ANACONDA_CONTAINER_WORKDIR=/home/anaconda3
+ANACONDA_LOCAL_WORKDIR=/home/docker/wwwroot/anaconda3
+
+#################### PHP5.6 ####################
+PHP56_LOG_PATH=./log/php56
+
+#################### Nginx #####################
+NGINX_VERSION=latest
+NGINX_LOG_PATH=./log/nginx
+NGINX_VHOSTS_PATH=./conf/nginx/conf.d
+NGINX_CONF_FILE=./conf/nginx/nginx.conf
+
+#################### MySQL #####################
+MYSQL_VERSION=5.7
+MYSQL_HOST_PORT=3306
+MYSQL_ROOT_PASSWORD=123456
+MYSQL_DATA_DIR=./data/mysql
+MYSQL_CONF_FILE=./conf/mysql/mysql.cnf
+
+#################### Redis #####################
+REDIS_CONF_FILE=./conf/redis/redis.conf
+REDIS_DATA_DIR=./data/redis
+REDIS_PORT=6379
+
+################## phpMyAdmin ##################
+PHPMYADMIN_HOST_PORT=8080
+
+################# redisMyAdmin #################
+REDISMYADMIN_HOST_PORT=8081
