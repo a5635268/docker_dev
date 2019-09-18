@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+
+    <!-- 定义MyCat的逻辑库 -->
+    <schema name="m1" checkSQLschema="true" sqlMaxLimit="100" dataNode="dn1"></schema>
+    <schema name="m2" checkSQLschema="true" sqlMaxLimit="100" dataNode="dn2"></schema>
+    <schema name="m3" checkSQLschema="true" sqlMaxLimit="100" dataNode="dn3"></schema>
+
+
+    <!-- 定义MyCat的数据节点 -->
+	<dataNode name="dn1" dataHost="datahost1" database="m1" />
+	<dataNode name="dn2" dataHost="datahost1" database="m2" />
+	<dataNode name="dn3" dataHost="datahost1" database="m3" />
+
+
+    <!-- 定义数据主机与读写分离及主从切换规则 -->
+	<dataHost name="datahost1" maxCon="1000" minCon="10" balance="1"
+			  writeType="0" dbType="mysql" dbDriver="native" switchType="2"  slaveThreshold="100">
+        <!-- switchType="2" 通过show slave status检测主从状态，当主宕机以后，发生切换，从变为主，原来的主变为从，这时候show slave
+			status就会发生错误，因为原来的主没有开启slave，不建议直接使用switch操作，而是在DB中做主从对调。 -->
+		<heartbeat>show slave status</heartbeat>
+		<writeHost host="hostM1" url="mysql_master:3306" user="root"
+				   password="123456">
+			<readHost host="hostS1" url="mysql_slave:3306" user="root" password="123456" />
+		</writeHost>
+	</dataHost>
+</mycat:schema>

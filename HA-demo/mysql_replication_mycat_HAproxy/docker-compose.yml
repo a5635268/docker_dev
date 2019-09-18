@@ -1,0 +1,40 @@
+version: "3"
+services:
+  mysql_master:
+    image: mysql:${MYSQL_VERSION}
+    ports:
+      - "${MYSQL_MASTER_HOST_PORT}:3306"
+    volumes:
+      - ${MYSQL_MASTER_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf
+      - ${MYSQL_MASTER_DATA_DIR}:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+
+  mysql_slave:
+    image: mysql:${MYSQL_VERSION}
+    ports:
+      - "${MYSQL_SLAVE_HOST_PORT}:3306"
+    volumes:
+      - ${MYSQL_SLAVE_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf
+      - ${MYSQL_SLAVE_DATA_DIR}:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+
+  mycat-1:
+    build:
+      context: ./mycat
+    volumes:
+      - ${MYCAT_1_CONF_DIR}:/mycat/conf
+
+  mycat-2:
+    build:
+      context: ./mycat
+    volumes:
+      - ${MYCAT_2_CONF_DIR}:/mycat/conf
+
+  haproxy:
+    image: haproxy:latest
+    volumes:
+      - ${HAPROXY_CONF_FILE}:/usr/local/etc/haproxy/haproxy.cfg
+    restart:
+      always
