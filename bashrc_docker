@@ -1,3 +1,4 @@
+#bash
 alias docker-pid="docker inspect --format '{{.State.Pid}}'"
 alias docker-ip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 

@@ -19,6 +19,30 @@ services:
     networks:
       - net-php
 
+  easyswoole:
+    build:
+      context: ./php/easyswoole
+    ports:
+      - "9501:9501"
+    volumes:
+      - ${APP_CODE_PATH_HOST}/easyswoole:/easyswoole
+    networks:
+      - net-php
+      - net-mysql
+      - net-redis
+
+  hyperf:
+    build:
+      context: ./php/hyperf
+    ports:
+      - "9502:9501"
+    volumes:
+      - ${APP_CODE_PATH_HOST}/hyperf:/home/wwwroot/hyperf-skeleton
+    networks:
+      - net-php
+      - net-mysql
+      - net-redis
+
   php72:
     build:
       context: ./php/72
