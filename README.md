@@ -136,6 +136,14 @@ xdebug.remote_log = "/var/log/dnmp/php.xdebug.log"
 然后重启PHP容器。
 注意XDEBUG只在php5.6容器中安装。因为与php7.2的swoole扩展冲突。
 
+## 其他命令
+
+```
+# 安装ping用于测试网络互通
+apt-get update
+apt-get install iputils-ping
+```
+
 ## 错误解决
 
 ### 解决nginx启动报：error creating overlay mount to /var/lib/docker/overlay2

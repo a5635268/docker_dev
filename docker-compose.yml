@@ -121,8 +121,26 @@ services:
       - net-mysql
       - net-redis
 
+  go-api:
+    build:
+      context: ./go/go-api
+    ports:
+      - "9001:8000"
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ${GO_API_LOGS_DIR}:/temp/logs
+      - ${GO_API_CONF_FILE}:/config
+    restart: always
+    networks:
+      - net-go
+      - net-mysql
+      - net-redis
+
 networks:
   net-php:
   net-python:
   net-mysql:
   net-redis:
+  net-go:
